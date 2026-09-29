@@ -1,0 +1,5 @@
+- [ ] Build POLARIS atlas shell and responsive navigation
+- [ ] Add home discovery surface with feed, pulse, stats, and expedition highlights
+- [ ] Add interconnected content views for explore, expeditions, knowledge, datasets, publications, media, map, outreach, and admin
+- [ ] Add demo data, modal/search interactions, and mobile bottom navigation
+- [ ] Validate preview and fix any build/runtime issues
