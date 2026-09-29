@@ -9,7 +9,7 @@ By deploying this way, your `GEMINI_API_KEY` stays securely hidden on the server
 2. Create a free account at [Render.com](https://render.com).
 
 ## Step 1: Deploy the Backend (Express + SQLite)
-Since our backend uses an SQLite database (`polaris.db`), we need to deploy it as a **Web Service** with a "Persistent Disk" (so your data isn't wiped out every time the server restarts).
+Since our backend uses an SQLite database, a paid server would keep your data forever. However, since you are likely using the **Free Tier ($0/month)**, the data will wipe when the server sleeps. *But don't worry!* Our backend code automatically re-ingests live data from NASA and OpenAlex whenever it wakes up, so your demo will always work perfectly!
 
 1. In the Render Dashboard, click **New +** and select **Web Service**.
 2. Connect your GitHub account and select the `polaris` repository.
@@ -23,13 +23,10 @@ Since our backend uses an SQLite database (`polaris.db`), we need to deploy it a
    * Scroll down to "Environment Variables" and click "Add Environment Variable".
    * Add `GEMINI_API_KEY` and paste your Google Gemini API key as the value.
    * *(Optional)* Add `ADMIN_PASSWORD` to secure your admin account.
-5. **Persistent Disk (Important for SQLite):**
-   * Go to the **Advanced** section.
-   * Click **Add Disk**.
-   * Name: `sqlite-data`
-   * Mount Path: `/opt/render/project/src/server/db`
-   * Size: `1 GB` (Free tier usually allows this).
-6. Click **Create Web Service**. 
+5. **Skip the Persistent Disk (for Free Tier):**
+   * Since Render's Free tier ($0/month) doesn't support persistent disks, your SQLite database will reset whenever the server goes to sleep.
+   * *But don't worry!* Our backend is smart. On startup, it checks if the database is empty, and if it is, it automatically triggers an ingestion to fetch fresh data from NASA, OpenAlex, and Zenodo!
+6. Click **Deploy Web Service** at the bottom.
 
 *Render will now build your backend. Copy the URL it gives you (e.g., `https://polaris-api.onrender.com`).*
 
